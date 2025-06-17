@@ -1,0 +1,42 @@
+name: Code Security Scan
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  push:
+    branches:
+      - main
+      - bug-fixing
+  pull_request:
+  schedule:
+    - cron: '0 0 * * 0'  # Optional: run weekly
+
+jobs:
+  bandit:
+    name: Bandit Security Scanner
+    runs-on: ubuntu-latest
+    defaults:
+        run:
+          working-directory: server
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+        
+      - name: Install Bandit
+        run: pip install bandit
+
+      - name: Run Bandit Scan and Generate Report
+        run: bandit -r . -c bandit.yaml -x server/tests -f json --exit-zero -o bandit_report.json
+
+      - name: Upload Bandit Report Artifact
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: bandit-report
+          path: server/bandit_report.json
