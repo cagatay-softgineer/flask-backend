@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ error_code }} Error</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700|Montserrat:700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/error.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://assets.codepen.io/16327/SplitText3.min.js"></script>
+  </head>
+  <body>
+    <!-- THEME SELECTOR -->
+    <div class="theme-selector">
+      <select id="theme-select" aria-label="Theme selector">
+        <option value="theme-dark">Dark</option>
+        <option value="theme-darkest">Darkest</option>
+        <option value="theme-monochrome">Monochrome</option>
+        <option value="theme-night-sky">Night Sky</option>
+        <option value="theme-ocean-breeze">Ocean Breeze</option>
+        <option value="theme-nordic-ice">Nordic Ice</option>
+        <option value="theme-desert-dusk">Desert Dusk</option>
+        <option value="theme-pastel-dream">Pastel Dream</option>
+        <option value="theme-solarized-light">Solarized Light</option>
+        <option value="theme-solarized-dark">Solarized Dark</option>
+        <option value="theme-minty-fresh">Minty Fresh</option>
+        <option value="theme-cherry-blossom">Cherry Blossom</option>
+        <option value="theme-retro-neon" selected>Retro Neon</option>
+        <option value="theme-autumn-woods">Autumn Woods</option>
+        <option value="theme-blue-ocean">Blue Ocean</option>
+        <option value="theme-vibrant-night">Vibrant Night</option>
+        <option value="theme-forest">Forest</option>
+        <option value="theme-sunrise">Sunrise</option>
+      </select>
+    </div>
+
+    <div class="error-bg">
+      <div class="glass-panel center-xy">
+        <div class="glitch-container">
+          <h1 class="glitch" id="glitch-error">{{ error_code }}</h1>
+          <div class="glitch-underline"></div>
+        </div>
+        <br /><br />
+        <p class="error-message">{{ error_message }}</p>
+        <button id="btn-home" onclick="window.location.href='/'">
+          Go Home
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const themeSelect = document.getElementById("theme-select");
+      const body = document.body;
+
+      function removeAllThemeClasses() {
+        // Remove any class that starts with "theme-"
+        body.className = body.className
+          .split(" ")
+          .filter((c) => !c.startsWith("theme-"))
+          .join(" ");
+      }
+
+      themeSelect.addEventListener("change", function () {
+        removeAllThemeClasses();
+        body.classList.add(this.value);
+        localStorage.setItem("errorpage-theme", this.value);
+      });
+
+      // On page load, set last chosen theme if available:
+      const savedTheme = localStorage.getItem("errorpage-theme");
+      if (savedTheme) {
+        removeAllThemeClasses();
+        body.classList.add(savedTheme);
+        themeSelect.value = savedTheme;
+      }
+
+      // --- GSAP SplitText Animations ---
+      gsap.registerPlugin(SplitText);
+
+      $(function () {
+        // Glitch animation for error code
+        const glitchEl = document.getElementById("glitch-error");
+        const myGlitchSplit = new SplitText(glitchEl, { type: "chars" });
+        gsap.from(myGlitchSplit.chars, {
+          duration: 0.7,
+          opacity: 0,
+          y: 30,
+          ease: "back.out(2)",
+          stagger: 0.05,
+        });
+
+        // Glitch underline animation
+        gsap.fromTo(
+          ".glitch-underline",
+          {
+            scaleX: 0,
+            opacity: 0.4,
+          },
+          {
+            scaleX: 1,
+            opacity: 1,
+            duration: 0.7,
+            ease: "expo.inOut",
+            delay: 0.4,
+          }
+        );
+
+        // Error message fade in and slide up
+        gsap.from(".error-message", {
+          y: 30,
+          opacity: 0,
+          duration: 0.7,
+          delay: 1,
+        });
+
+        // Panel float in
+        gsap.from(".glass-panel", {
+          y: 60,
+          opacity: 0,
+          duration: 1,
+          ease: "power4.out",
+        });
+
+        // Home button slight fade/slide
+        gsap.from("#btn-home", {
+          opacity: 0,
+          y: 10,
+          delay: 1.1,
+          duration: 0.6,
+        });
+      });
+    </script>
+  </body>
+</html>

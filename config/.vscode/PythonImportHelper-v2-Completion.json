@@ -1,0 +1,63 @@
+[
+    {
+        "label": "BaseSettings",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "secrets",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "secrets",
+        "description": "secrets",
+        "detail": "secrets",
+        "documentation": {}
+    },
+    {
+        "label": "Settings",
+        "kind": 6,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "class Settings(BaseSettings):\n    jwt_secret_key: str = Field(..., env=\"JWT_SECRET_KEY\")\n    spotify_client_id: str = Field(..., env=\"SPOTIFY_CLIENT_ID\")\n    spotify_client_secret: str = Field(..., env=\"SPOTIFY_CLIENT_SECRET\")\n    auth_redirect_uri: str = Field(..., env=\"AUTH_REDIRECT_URI\")\n    debug_mode: str = Field(default=False, env=\"DEBUG_MODE\")\n    salt: str = Field(..., env=\"SALT\")\n    musixmatch_API_KEY: str = Field(..., env=\"MUSIXMATCH_API_KEY\")\n    google_client_id: str = Field(..., env=\"GOOGLE_CLIENT_ID\")\n    google_client_secret: str = Field(..., env=\"GOOGLE_CLIENT_SECRET\")",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "FirebaseConfig",
+        "kind": 6,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "class FirebaseConfig(BaseSettings):\n    api_key: str = Field(..., env=\"FIREBASECONFIG_APIKEY\")\n    auth_domain: str = Field(..., env=\"FIREBASECONFIG_AUTHDOMAIN\")\n    project_id: str = Field(..., env=\"FIREBASECONFIG_PROJECTID\")\n    storage_bucket: str = Field(..., env=\"FIREBASECONFIG_STORAGEBUCKET\")\n    messaging_sender_id: str = Field(...,\n                                     env=\"FIREBASECONFIG_MESSAGINGSENDERID\")\n    app_id: str = Field(..., env=\"FIREBASECONFIG_APPID\")\n    measurement_id: str = Field(..., env=\"FIREBASECONFIG_MEASUREMENTID\")\n    class Config:",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "kind": 5,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "settings = Settings()\nclass FirebaseConfig(BaseSettings):\n    api_key: str = Field(..., env=\"FIREBASECONFIG_APIKEY\")\n    auth_domain: str = Field(..., env=\"FIREBASECONFIG_AUTHDOMAIN\")\n    project_id: str = Field(..., env=\"FIREBASECONFIG_PROJECTID\")\n    storage_bucket: str = Field(..., env=\"FIREBASECONFIG_STORAGEBUCKET\")\n    messaging_sender_id: str = Field(...,\n                                     env=\"FIREBASECONFIG_MESSAGINGSENDERID\")\n    app_id: str = Field(..., env=\"FIREBASECONFIG_APPID\")\n    measurement_id: str = Field(..., env=\"FIREBASECONFIG_MEASUREMENTID\")",
+        "detail": "config",
+        "documentation": {}
+    },
+    {
+        "label": "firebase_config",
+        "kind": 5,
+        "importPath": "config",
+        "description": "config",
+        "peekOfCode": "firebase_config = FirebaseConfig()\n# db = init_firebase(firebase_config)\n# converter = SQLToFirestoreConverter(db, alias_map=sql2firebase.alias_map)",
+        "detail": "config",
+        "documentation": {}
+    }
+]
