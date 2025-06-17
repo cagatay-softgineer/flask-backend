@@ -1,5 +1,7 @@
 # Flask Multi-Backend Database Support
 
+[![CodeQL Advanced](https://github.com/cagatay-softgineer/flask-backend/actions/workflows/codeql.yml/badge.svg)](https://github.com/cagatay-softgineer/flask-backend/actions/workflows/codeql.yml)
+
 This project provides a clean and modular backend setup for Flask applications with support for multiple database backends: PostgreSQL, SQLite, MySQL, MongoDB, and Firebase/Firestore. It uses `psycopg2`, `pymysql`, `pymongo`, and `google-cloud-firestore` for database interactions, `pydantic` for environment configuration, and Flask **Blueprints** to organize routes and avoid spaghetti code.
 
 ## 📦 Project Structure
